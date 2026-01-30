@@ -1,8 +1,10 @@
-Snabb översikt
+# GitHub Best Practice
+
+## Snabb översikt
 
 Ja: alla jobbar i egna branches och allt går in via Pull Requests. Best practice i DevSecOps är att göra main “helig”: ingen direct push, bara PR + CI-gates.
 
-2–4 frågor (för att välja rätt workflow)
+## 2–4 frågor (för att välja rätt workflow)
 
 Vill ni jobba som ett “produktteam” med en main och kortlivade branches?
 
@@ -14,7 +16,7 @@ Kör ni GitHub Projects/Jira eller bara Issues?
 
 (Svara kort, men jag ger redan ett bra default-upplägg nedan.)
 
-Rekommenderad best practice (enkel, proffsig)
+## Rekommenderad best practice (enkel, proffsig)
 Branching-modell: Trunk-based development (rekommenderas)
 
 main = alltid deploybar
@@ -31,7 +33,7 @@ Merge via PR efter:
 
 Varför: snabb feedback, mindre merge-conflicts, passar 6 veckor.
 
-Praktisk rutin (hur ni jobbar dag för dag)
+## Praktisk rutin (hur ni jobbar dag för dag)
 1) Skapa en branch per uppgift (inte per person)
 
 Exempel:
@@ -52,7 +54,7 @@ Varför: ni kan parallellisera och ändå ha ren historik.
 
 Om ni vill kan varje person “äga” ett område, men branchen ska representera en tydlig förändring.
 
-PR-regler (minimum som räcker långt)
+## PR-regler (minimum som räcker långt)
 
 Sätt upp detta i GitHub:
 
@@ -70,7 +72,7 @@ Branch protection på main
 
 ✅ (valfritt) Require signed commits
 
-Merge-strategi
+## Merge-strategi
 
 Rekommenderat: Squash and merge
 
@@ -78,7 +80,7 @@ Rekommenderat: Squash and merge
 
 lättare att backa (revert)
 
-Hur ni undviker krockar (viktigast i team)
+## Hur ni undviker krockar (viktigast i team)
 Ägarskap + CODEOWNERS (enkelt men effektivt)
 
 Skapa .github/CODEOWNERS för att styra reviewers:
@@ -95,7 +97,7 @@ Exempel:
 
 Det gör att GitHub automatiskt pingar rätt reviewer.
 
-Issue → Branch → PR (en standard-loop)
+## Issue → Branch → PR (en standard-loop)
 
 Skapa en Issue (eller GitHub Project-kort)
 
@@ -107,7 +109,8 @@ Jobba, committa smått
 
 CI + review → merge
 
-Mini-exempel (kommandon ni följer)
+## Mini-exempel (kommandon ni följer)
+```bash
 git checkout main
 git pull
 git checkout -b feat/k8s-base-manifests
@@ -115,11 +118,12 @@ git checkout -b feat/k8s-base-manifests
 git add .
 git commit -m "Add base Kubernetes manifests (Deployment/Service)"
 git push -u origin feat/k8s-base-manifests
+```
 
 
 Sen PR i GitHub.
 
-Vanliga misstag (som ni bör undvika)
+## Vanliga misstag (som ni bör undvika)
 
 En branch per person i 6 veckor → gigantiska PR:ar, konflikter, svårt att reviewa.
 
@@ -127,7 +131,7 @@ Mergar utan CI → ni tappar DevSecOps-poängen direkt.
 
 För långa branches → trunk-based funkar bara om ni håller dem korta.
 
-Min rekommenderade “teamkontrakt” (1 minut att enas om)
+## Min rekommenderade “teamkontrakt” (1 minut att enas om)
 
 Main är skyddad, endast PR.
 
@@ -141,7 +145,7 @@ En person är merge captain per vecka (roterar), som ser till att inget fastnar.
 
 ---
 
-Kort cheat-sheet (teamet)
+## Kort cheat-sheet (teamet)
 
 - Starta alltid från remote main:
   - git fetch origin

@@ -1,4 +1,6 @@
-Snabb översikt (vad ni ska göra och varför)
+# PLAN
+
+## Snabb översikt (vad ni ska göra och varför)
 
 Ni ska inte bygga en avancerad applikation.
 Ni ska bygga en säker leveransmaskin där applikationen bara är ett fordon för:
@@ -15,7 +17,7 @@ incident response
 
 👉 Appen ska vara tillräckligt enkel för att ni alltid kan fokusera på DevSecOps-delarna.
 
-Rekommenderat projekt (tydligt svar på din fråga)
+## Rekommenderat projekt (tydligt svar på din fråga)
 ❌ Avrådan: Full “File Upload Scanner”
 
 Kräver async jobs, storage, AV-hantering
@@ -58,7 +60,7 @@ Lätt att simulera incident (malware, DoS, crash)
 
 👉 Detta ger max poäng per investerad timme.
 
-Antaganden vi gör (för att komma framåt)
+## Antaganden vi gör (för att komma framåt)
 
 Eftersom kursen inte specificerar allt, gör vi rimliga, accepterade antaganden:
 
@@ -78,7 +80,7 @@ Secrets: GitHub Secrets + K8s secrets
 
 Detta är HELT i linje med kursens innehåll.
 
-Team-organisation (5 personer, kritiskt för att hinna)
+## Team-organisation (5 personer, kritiskt för att hinna)
 
 Dela upp roller – detta är viktigt för VG.
 
@@ -88,7 +90,7 @@ CI/CD	GitHub Actions, build/test
 Security	Trivy, SBOM, Cosign
 K8s/Policy	Gatekeeper, manifests
 Runtime/IR	Falco, runbooks, post-mortem
-Vecka-för-vecka-plan (6 veckor, realistisk)
+## Vecka-för-vecka-plan (6 veckor, realistisk)
 Vecka 1 – Foundation
 
 Mål: Allt bygger, inget säkert än
@@ -195,7 +197,7 @@ Kostnadsanalys (kort!)
 Deliverable:
 ✅ VG-redo presentation
 
-Exempel på tydliga SLIs/SLOs (enkelt men proffsigt)
+## Exempel på tydliga SLIs/SLOs (enkelt men proffsigt)
 
 SLI:
 
@@ -209,7 +211,7 @@ SLO:
 
 p95 < 500 ms
 
-Koppling till NIST CSF (som lärarna älskar)
+## Koppling till NIST CSF (som lärarna älskar)
 NIST	Vad ni visar
 PROTECT	Trivy, SBOM, Gatekeeper
 DETECT	Falco, metrics, alerts
