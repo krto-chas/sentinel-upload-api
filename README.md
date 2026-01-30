@@ -13,13 +13,11 @@ Docs index
 - runbooks/upload-api-unavailable.md
 - sre/postmortem-template.md
 
-Run locally (venv)
+Run locally (Docker)
 
 ```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r app/requirements.txt
-uvicorn app.main:app --reload
+docker build -f docker/Dockerfile -t sentinel-upload-api:dev .
+docker run --rm -p 8000:8000 sentinel-upload-api:dev
 ```
 
 Health check
@@ -35,6 +33,15 @@ curl -F "file=@README.md;type=text/markdown" http://localhost:8000/upload
 ```
 
 Expected response
+
+Optional: Run locally (venv)
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r app/requirements.txt
+uvicorn app.main:app --reload
+```
 
 ```json
 {"filename":"README.md","content_type":"text/markdown","status":"accepted"}
