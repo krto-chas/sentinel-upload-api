@@ -12,6 +12,7 @@ Docs index
 - sre/sli-slo.md
 - runbooks/upload-api-unavailable.md
 - sre/postmortem-template.md
+- ToDo.md
 
 Run locally (Docker)
 
@@ -19,6 +20,12 @@ Run locally (Docker)
 docker build -f docker/Dockerfile -t sentinel-upload-api:dev .
 docker run --rm -p 8000:8000 sentinel-upload-api:dev
 ```
+
+UI
+
+- Open http://localhost:8000/
+- Logo asset: app/static/assets/sidestep-logo.png
+- Use the UI upload console to test /upload.
 
 Health check
 

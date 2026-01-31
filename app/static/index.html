@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentinel Upload API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <header>
+      <div class="nav">
+        <div class="brand">
+          <img src="/static/assets/sidestep-logo.png" alt="Sidestep Error logo" />
+          <div>
+            <div>Sentinel Upload API</div>
+            <small>Secure DevSecOps Demo</small>
+          </div>
+        </div>
+        <div class="pill">build → scan → deploy</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Secure Uploads, Zero Guesswork</h1>
+          <p>
+            A hardened file intake pipeline built for DevSecOps. Validate types,
+            enforce policy, and ship with confidence.
+          </p>
+          <div class="cta">
+            <a class="button" href="/docs">API Docs</a>
+            <a class="button" href="#upload">Test Upload</a>
+          </div>
+        </div>
+        <div class="panel">
+          <img
+            class="logo-hero"
+            src="/static/assets/sidestep-logo.png"
+            alt="Sidestep Error mark"
+          />
+        </div>
+      </section>
+
+      <section id="upload" class="panel upload">
+        <h2>Upload Console</h2>
+        <div class="dropzone" id="dropzone">
+          <p>Drop a file here or click to choose</p>
+          <label for="file-input">Choose file</label>
+          <input id="file-input" type="file" />
+        </div>
+        <div class="meta">
+          <div>Allowed types: PDF, PNG, JPG, TXT, MD</div>
+          <div>Endpoint: <code>/upload</code></div>
+        </div>
+        <button class="button" id="upload-btn" type="button">Upload now</button>
+        <div class="status" id="status">Waiting for input…</div>
+      </section>
+
+      <section class="cards">
+        <div class="card">
+          <h3>Policy Guarded</h3>
+          <p>Trivy, SBOM, and gatekeeper checks enforce clean builds.</p>
+        </div>
+        <div class="card">
+          <h3>Runtime Ready</h3>
+          <p>Falco + runbooks for instant incident response.</p>
+        </div>
+        <div class="card">
+          <h3>Observable</h3>
+          <p>SLIs/SLOs track success rate and latency.</p>
+        </div>
+      </section>
+
+      <footer>
+        <p>Sentinel Upload API · NordTech AB · DevSecOps program</p>
+      </footer>
+    </main>
+
+    <script>
+      const dropzone = document.getElementById("dropzone");
+      const input = document.getElementById("file-input");
+      const uploadBtn = document.getElementById("upload-btn");
+      const statusEl = document.getElementById("status");
+
+      function setStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.classList.remove("error", "warn");
+        if (type) statusEl.classList.add(type);
+      }
+
+      dropzone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        dropzone.classList.add("dragover");
+      });
+
+      dropzone.addEventListener("dragleave", () => {
+        dropzone.classList.remove("dragover");
+      });
+
+      dropzone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        dropzone.classList.remove("dragover");
+        if (event.dataTransfer.files.length) {
+          input.files = event.dataTransfer.files;
+          setStatus(`Selected ${input.files[0].name}`);
+        }
+      });
+
+      dropzone.addEventListener("click", () => input.click());
+      input.addEventListener("change", () => {
+        if (input.files.length) {
+          setStatus(`Selected ${input.files[0].name}`);
+        }
+      });
+
+      uploadBtn.addEventListener("click", async () => {
+        if (!input.files.length) {
+          setStatus("Choose a file first.", "warn");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", input.files[0]);
+
+        try {
+          setStatus("Uploading...");
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.detail || "Upload failed");
+          }
+          setStatus(`Accepted: ${data.filename} (${data.content_type})`);
+        } catch (error) {
+          setStatus(error.message, "error");
+        }
+      });
+    </script>
+  </body>
+</html>

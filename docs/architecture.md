@@ -3,6 +3,7 @@
 ## Components
 
 - FastAPI service with /health and /upload
+- Static UI served from / (app/static)
 - Docker image built in CI
 - GitHub Actions CI: test and build
 - Kubernetes deployment (planned)
